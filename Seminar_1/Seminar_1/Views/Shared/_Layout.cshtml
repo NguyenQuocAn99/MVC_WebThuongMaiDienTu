@@ -1,0 +1,233 @@
+﻿@using Seminar_1.Models
+<html>
+<head>
+    <title>Trang Thương Mại Điện Tử Fsale</title>
+    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/css/bootstrap-select.css">
+    <link href="~/Content/css/stylenav.css" rel="stylesheet" type="text/css" media="all">
+    <link rel="stylesheet" href="~/Content/css/flexslider.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="~/Content/css/font-awesome.min.css">
+    <!-- for-mobile-apps -->
+    @*css khác project--CSS2>*@
+    @*Bootstrap css*@
+    <link href="~/Content/css2/bootstrapnav.css" rel="stylesheet" type="text/css" media="all">
+    <link href="~/Content/css2/style1.css" rel="stylesheet" type="text/css" media="all">
+    @*Main css*@
+    <link rel="stylesheet" href="~/Content/fontawesome-free-5.15.1/css/all.css">
+    <link rel="stylesheet" href="~/Content/css2/fontawesome-all.css">
+
+    <!-- Font-Awesome-Icons-CSS
+    <link href="~/Content/css2/popuo-box.css" rel="stylesheet" type="text/css" media="all">
+    <!-- pop-up-box -->
+    <link href="~/Content/css2/menu.css" rel="stylesheet" type="text/css" media="all">
+    <!--fon_awaresome-->
+    <!--CSS3-->
+
+    <link href="~/Content/css3/style.css" rel="stylesheet" type="text/css" media="all">
+    <link href="~/Content/css3/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+    <link href="~/Content/css3/skdslider.css" rel="stylesheet" type="text/css" media="all">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="keywords" content="Resale Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design">
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- //for-mobile-apps -->
+    <!--fonts-->
+    <link href="//fonts.googleapis.com/css?family=Ubuntu+Condensed" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic" rel="stylesheet" type="text/css">
+    <!--//fonts-->
+  
+
+    <!-- Custom CSS -->
+   
+
+    <!-- font-awesome icons CSS -->
+    <!-- js -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="~/Content/js/jquery.min.js"></script>
+    <!-- js -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/bootstrap-select.js"></script>
+    <script>
+        $(document).ready(function () {
+            var mySelect = $('#first-disabled2');
+
+            $('#special').on('click', function () {
+                mySelect.find('option:selected').prop('disabled', true);
+                mySelect.selectpicker('refresh');
+            });
+
+            $('#special2').on('click', function () {
+                mySelect.find('option:disabled').prop('disabled', false);
+                mySelect.selectpicker('refresh');
+            });
+
+            $('#basic2').selectpicker({
+                liveSearch: true,
+                maxOptions: 1
+            });
+        });
+    </script>
+    <script type="text/javascript" src="~/Content/js/jquery.leanModal.min.js"></script>
+    <link href="~/Content/css/jquery.uls.css" rel="stylesheet">
+    <link href="~/Content/css/jquery.uls.grid.css" rel="stylesheet">
+    <link href="~/Content/css/jquery.uls.lcd.css" rel="stylesheet">
+    <!-- Source -->
+    <script src="~/Content/js/jquery.uls.data.js"></script>
+    <script src="~/Content/js/jquery.uls.data.utils.js"></script>
+    <script src="~/Content/js/jquery.uls.lcd.js"></script>
+    <script src="~/Content/js/jquery.uls.languagefilter.js"></script>
+    <script src="~/Content/js/jquery.uls.regionfilter.js"></script>
+    <script src="~/Content/js/jquery.uls.core.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.uls-trigger').uls({
+                onSelect: function (language) {
+                    var languageName = $.uls.data.getAutonym(language);
+                    $('.uls-trigger').text(languageName);
+                },
+                quickList: ['en', 'hi', 'he', 'ml', 'ta', 'fr'] //FIXME
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="@Url.Action("Index","Home")"><span>F</span>sale</a>
+            </div>
+            <div class="header-right">
+                @if (Session["DangNhap"] == null)
+                {
+                    <a class="account" style="margin-right:10px;" href="@Url.Action("DangNhap","Home")">Đăng nhập</a>
+
+                    <a class="account" style="margin-right:10px;" href="@Url.Action("DangKy","Home")">Đăng Ký</a>
+                }
+                else
+                {
+                    ThanhVien tv = (ThanhVien)Session["dangnhap"];
+                    if (tv.MaTV == 3)
+                    {
+                        <a class="account" style="margin-right:10px;" href="@Url.Action("Index","Admin")">Kho</a>
+                        <a class="account" style="margin-right:10px;" href="@Url.Action("DangXuat", "Home")">Đăng xuất</a>
+                    }
+                    else
+                    {
+                        @Html.Action("PartialViewIconGioHang", "GioHang")
+                        <a class="account" style="margin-right:10px;" href="@Url.Action("Index","DashBoard")">Kênh người bán</a>
+                        <a class="account" style="margin-right:10px;" href="@Url.Action("DonHangCuaBan","GioHang")">@tv.TenTV</a>
+                        <a class="account" style="margin-right:10px;" href="@Url.Action("DangXuat", "Home")">Đăng xuất</a>
+                    }
+
+                }
+
+            </div>
+        </div>
+    </div>
+    <div class="main-banner banner text-center">
+        <div class="container">
+            <h1>Sell or Advertise   <span class="segment-heading">    anything online </span> with Fsale</h1>
+            <p>Đăng quảng cáo để mọi người biết đến sản phẩm của bạn!</p>
+            @if (Session["DangNhap"] != null)
+            {
+                <a href="@Url.Action("Index","DashBoard")">Đăng quảng cáo mới</a>
+            }
+            else
+            {
+                <a href="@Url.Action("DangNhap","Home")">Đăng quảng cáo mới</a>
+            }
+        </div>
+    </div>
+    <!-- content-starts-here -->
+    <div class="content">
+        @RenderBody()
+    </div>
+    <!--footer section start-->
+    <footer>
+        <div class="footer-top">
+            <div class="container">
+                <div class="foo-grids">
+                    <div class="col-md-3 footer-grid">
+                        <h4 class="footer-head">Who We Are</h4>
+                        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+                        <p>The point of using Lorem Ipsum is that it has a more-or-less normal letters, as opposed to using 'Content here.</p>
+                    </div>
+                    <div class="col-md-3 footer-grid">
+                        <h4 class="footer-head">Help</h4>
+                        <ul>
+                            <li><a href="howitworks.html">How it Works</a></li>
+                            <li><a href="sitemap.html">Sitemap</a></li>
+                            <li><a href="faq.html">Faq</a></li>
+                            <li><a href="feedback.html">Feedback</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="typography.html">Shortcodes</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 footer-grid">
+                        <h4 class="footer-head">Information</h4>
+                        <ul>
+                            <li><a href="regions.html">Locations Map</a></li>
+                            <li><a href="terms.html">Terms of Use</a></li>
+                            <li><a href="popular-search.html">Popular searches</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 footer-grid">
+                        <h4 class="footer-head">Contact Us</h4>
+                        <span class="hq">Our headquarters</span>
+                        <address>
+                            <ul class="location">
+                                <li><span class="glyphicon glyphicon-map-marker"></span></li>
+                                <li>CENTER FOR FINANCIAL ASSISTANCE TO DEPOSED NIGERIAN ROYALTY</li>
+                                <div class="clearfix"></div>
+                            </ul>
+                            <ul class="location">
+                                <li><span class="glyphicon glyphicon-earphone"></span></li>
+                                <li>+0 561 111 235</li>
+                                <div class="clearfix"></div>
+                            </ul>
+                            <ul class="location">
+                                <li><span class="glyphicon glyphicon-envelope"></span></li>
+                                <li><a href="mailto:info@example.com">mail@example.com</a></li>
+                                <div class="clearfix"></div>
+                            </ul>
+                        </address>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <div class="container">
+                <div class="footer-logo">
+                    <a href="@Url.Action("Index","Home")"><span>F</span>sale</a>
+                </div>
+                <div class="footer-social-icons">
+                    <ul>
+                        <li><a class="facebook" href="#"><span>Facebook</span></a></li>
+                        <li><a class="twitter" href="#"><span>Twitter</span></a></li>
+                        <li><a class="flickr" href="#"><span>Flickr</span></a></li>
+                        <li><a class="googleplus" href="#"><span>Google+</span></a></li>
+                        <li><a class="dribbble" href="#"><span>Dribbble</span></a></li>
+                    </ul>
+                </div>
+                <div class="copyrights">
+                    <p> © 2016 Fsale. All Rights Reserved | Design by  <a href="http://w3layouts.com/"> W3layouts</a></p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        @* Thêm 2 dòng script bên duouis này *@
+        <script src="~/Scripts/jquery.signalR-2.4.2.min.js"></script>
+        <script src="~/signalr/hubs"></script>
+        @RenderSection("scripts", required: false)
+    </footer>
+    <!--footer section end-->
+  
+</body>
+</html>

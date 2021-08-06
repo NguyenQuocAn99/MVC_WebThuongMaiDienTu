@@ -1,0 +1,103 @@
+﻿@using Seminar_1.Models
+@{
+    ViewBag.Title = "ChiTietSanPham";
+}
+@{
+    SanPham temp = (SanPham)ViewBag.SP;
+    String LoaiDM = (String)ViewBag.LoaiDM;
+    String LoaiSP = (String)ViewBag.LoaiSP;
+    String TenNguoiBan = (String)ViewBag.TenNguoiBan;
+    String SDT = (String)ViewBag.SDT;
+    String DiaChi = (String)ViewBag.DiaChi;
+  
+}
+    <div class="single-page main-grid-border">
+        <div class="container">
+            <ol class="breadcrumb" style="margin-bottom: 5px;">
+                <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                <li class="active">@LoaiDM</li>
+                <li class="active">@LoaiSP</li>
+            </ol>
+            <div class="product-desc">
+                <div class="col-md-7 product-view">
+                    <h2>@temp.TenSP</h2>
+                    <p> <i class="glyphicon glyphicon-map-marker"></i><a href="#">Địa chỉ</a>|@DiaChi</p>
+                    <div class="flexslider">
+
+                        <div class="flex-viewport" style="overflow: hidden; position: relative;">
+                            <ul class="slides" style="width: 1000%; transition-duration: 0.6s; transform: translate3d(-1527px, 0px, 0px);">
+
+
+
+                                <li data-thumb="@temp.HinhAnh" style="width: 509px; float: left; display: block;" class="clone" aria-hidden="true">
+                                    <img src="@temp.HinhAnh" draggable="false">
+                                </li>
+                            </ul>
+                        </div><ol class="flex-control-nav flex-control-thumbs"><li><img src="@temp.HinhAnh" class="" draggable="false"></li></ol><ul class="flex-direction-nav"><li class="flex-nav-prev"><a class="flex-prev" href="#">Previous</a></li><li class="flex-nav-next"><a class="flex-next" href="#">Next</a></li></ul>
+                    </div>
+                    <!-- FlexSlider -->
+                    <script defer="" src="~/Content/js/jquery.flexslider.js"></script>
+                    <link rel="stylesheet" href="~/Content/css/flexslider.css" type="text/css" media="screen">
+
+                    <script>
+					// Can also be used with $(document).ready()
+					$(window).load(function() {
+					  $('.flexslider').flexslider({
+						animation: "slide",
+						controlNav: "thumbnails"
+					  });
+					});
+                    </script>
+                    <!-- //FlexSlider -->
+                    <div class="product-details">
+                        @*<h4>Brand : <a href="#">Company name</a></h4>*@
+                        <a href="@Url.Action("ShowSanPhamShop","SanPham", new {@MaNguoiBan=temp.MaNguoiBan})"><h4>Người bán: <strong>@TenNguoiBan</strong></h4></a>
+                            
+                            @*<p><strong>Display </strong>: 1.5 inch HD LCD Touch Screen</p>*@
+                            <p><strong>Mô tả</strong> : @temp.MoTaSP</p>
+
+</div>
+                </div>
+                <div class="col-md-5 product-details-grid">
+                    <div class="item-price" style="width:400px;">
+                        <div class="product-price">
+                            <p class="p-price">Giá</p>
+                            <h3 class="rate">₫ @temp.Gia
+                            </h3>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="condition">
+                            <p class="p-price">Số lượng tồn</p>
+                            <h4>@temp.SoLuongTon</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="itemtype">
+                            <p class="p-price">Danh mục</p>
+                            <h4>@LoaiSP</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="interested text-center" style="width:400px;">
+                        <h4>Liên hệ người bán!</h4>
+                        <p><i class="glyphicon glyphicon-earphone"></i>@SDT</p>
+                    </div>
+                    @*<div class="tips">
+                        <h4>Safety Tips for Buyers</h4>
+                        <ol>
+                            <li><a href="#">Contrary to popular belief.</a></li>
+                            <li><a href="#">Contrary to popular belief.</a></li>
+                            <li><a href="#">Contrary to popular belief.</a></li>
+                            <li><a href="#">Contrary to popular belief.</a></li>
+                            <li><a href="#">Contrary to popular belief.</a></li>
+                            <li><a href="#">Contrary to popular belief.</a></li>
+                            <li><a href="#">Contrary to popular belief.</a></li>
+                            <li><a href="#">Contrary to popular belief.</a></li>
+                            <li><a href="#">Contrary to popular belief.</a></li>
+                        </ol>
+                    </div>*@
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+

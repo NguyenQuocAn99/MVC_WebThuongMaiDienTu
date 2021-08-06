@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "DangNhap";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div id="page-wrapper" class="sign-in-wrapper">
+        <div class="graphs">
+            <div class="sign-in-form">
+                <div class="sign-in-form-top">
+                    <h1>Đăng Nhập</h1>
+                </div>
+                <div class="signin">
+                    <div class="signin-rit">
+                        @*<span class="checkbox1">
+                <label class="checkbox"><input type="checkbox" name="checkbox" checked="">Forgot Password ?</label>
+            </span>*@
+                        @*<p><a href="#">Forgot password</a> </p>*@
+                        <div class="clearfix"> </div>
+                    </div>
+                    @using (Html.BeginForm("DangNhap", "Home"))
+                    {
+                     
+                            <div class="log-input">
+                                <div class="log-input-left" style="width:100%;">
+                                    <input style="width:100%;" type="text" class="user" value="Username" name="Username" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Email';}">
+                                </div>
+                                @*<span class="checkbox2">
+                        <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i></label>
+                    </span>*@
+                                @*<div class="clearfix"> </div>*@
+                            </div>
+                            <div class="log-input">
+                                <div class="log-input-left" style="width:100%;">
+                                    <input style="width:100%;" type="password" class="lock" value="password" name="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email address:';}">
+                                </div>
+                                @*<span class="checkbox2">
+                        <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i></label>
+                    </span>*@
+                                <div class="clearfix"> </div>
+                            </div>
+                            <input type="submit" value="Đăng nhập">
+            
+                    }
+
+                </div>
+                <div class="new_people">
+                    <h2>Cho người mới</h2>
+                    <p>
+                        Hãy tạo tài khoản để trở thành thành viên của Fshop.
+                    </p>
+                    <a href="@Url.Action("DangKy","Home")">Đăng ký ngay!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+

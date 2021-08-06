@@ -1,0 +1,15 @@
+﻿@using Seminar_1.Models
+@model IEnumerable<DanhMucSP>
+@foreach (var item in Model)
+{
+    <div class="col-md-3 focus-grid">
+        <a href="@Url.Action("SanPham","SanPham",new {@MaDM=item.MaDM,@MaLSP=0 })">
+            <div class="focus-border">
+                <div class="focus-layout">
+                    <div class="focus-image"><img src="@item.Icon" style="height:120px;width:100px" ></div>
+                    <h4 class="clrchg">@item.TenDM</h4>
+                </div>
+            </div>
+        </a>
+    </div>
+}

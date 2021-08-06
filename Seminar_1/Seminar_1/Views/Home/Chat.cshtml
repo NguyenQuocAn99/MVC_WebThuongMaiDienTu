@@ -1,0 +1,73 @@
+﻿@using System.Web
+@using Seminar_1.Models
+@{
+    ViewBag.Title = "Chat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Chat</h2>
+<div class="container" id="divLogin">
+    <input type="text" id="txtName" placeholder="Nhập tên" />
+    <button class="btn btn-success" id="btnLogin">Login</button>
+    <input type="hidden" id="hName" />
+</div>
+<div class="container" id="divChat">
+    <h2 id="welcome"></h2>
+    <input type="text" id="txtMessage" />
+    <button class="btn btn-success" id="btnSend">Send</button>
+</div>
+<div class="container">
+    <ul id="contentMsg">
+    </ul>
+</div>
+@section scripts
+{
+    <script>
+        // sau khi login thành công sẽ gọi cái này
+        function show() {
+            $('#divLogin').hide();
+            $('#divChat').show();
+        }
+        //gọi luôn khi chạy
+        function hide() {
+            $('#divChat').hide();
+            $('#divLogin').show();
+        }
+        $(function () {
+            hide();
+
+            var chatHub = $.connection.chat;
+            loadClient(chatHub);
+            //khởi chạy connect hub
+            $.connection.hub.start().done(function () {
+                $("#btnLogin").click(function () {
+                    var name = $("#txtName").val();
+                    chatHub.server.connect(name);
+                    $('#welcome').html("Xin chao : " + name);
+                    show();
+                });
+
+                $('#btnSend').click(function () {
+                   
+                    var msg = $('#txtMessage').val();
+                    var name = $('#hName').val();
+                    chatHub.server.message(name, msg);
+                    $('#txtMessage').val('').focus();
+                });
+            });
+
+        });
+
+        // load các ham bên phía client
+        function loadClient(chatHub) {
+
+            chatHub.client.message = function (name, msg) {
+                $('#contentMsg').append("<li><strong>" + name + "</strong>: " + msg + "</li>");
+            }
+            chatHub.client.connect = function (name) {
+                $('#hName').val(name);
+            }
+        }
+    </script>
+}
+

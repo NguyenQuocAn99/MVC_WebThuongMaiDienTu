@@ -1,0 +1,90 @@
+﻿@using Seminar_1.Models
+@model IEnumerable<GioHang>
+@{
+    ViewBag.Title = "XemGioHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .padding10px{
+        padding:10px;
+    }
+</style>
+@if(Session["DangNhap"]==null)
+{
+    <h2>Đăng nhập để xem giỏ hàng của bạn!</h2>
+}else
+{
+    <div class="container py-xl-4 py-lg-2">
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+            <span>G</span>iỏ hàng
+        </h3>
+        <!-- //tittle heading -->
+        <div class="checkout-right">
+            <h4 class="mb-sm-4 mb-3">
+                Giỏ hàng của bạn có:
+                <span>@Model.Count() sản phẩm</span>
+            </h4>
+            <div class="table-responsive">
+                <table class="timetable_sub2">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Ảnh</th>
+                            <th style="width:200px;">        Số lượng     </th>
+                            <th>Tên sản phẩm</th>
+
+                            <th>Giá</th>
+                            <th style="width:70px;">Xóa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{int i = 0; decimal tongtien = 0;}
+                        @foreach (var item in Model)
+                        {
+                            <tr class="rem1">
+                                <td class="invert">@i</td>
+                                <td class="invert-image">
+                                    <a href="single.html">
+                                        <img src="@Url.Content(item.HinhAnh)" alt=" " class="img-responsive">
+                                    </a>
+                                </td>
+                                <td class="invert">
+                                    <div class="quantity">
+                                        <div class="quantity-select">
+                                            <a class="entry value-minus" href="@Url.Action("SuaSoLuongHang","GioHang",new{@MaSP=item.MaSP,@MaKH=item.MaNguoiMua,@strURL=Request.Url.ToString(),@sw=false})">&nbsp;</a>
+                                            <div class="entry value">
+                                                <span>@item.SoLuong</span>
+                                            </div>
+                                            <a class="entry value-plus active" href="@Url.Action("SuaSoLuongHang","GioHang",new{@MaSP=item.MaSP,@MaKH=item.MaNguoiMua,@strURL=Request.Url.ToString(),@sw=true})">&nbsp;</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="invert">@item.TenSP</td>
+                                <td class="invert">@item.DonGia.ToString("#,##") đ</td>
+                                <td class="invert">
+                                    <div class="rem">
+                                        <a class="close1" href="@Url.Action("XoaItemTrongGioHang","GioHang",new{@MaSP=item.MaSP,@MaKH=item.MaNguoiMua,@strURL=Request.Url.ToString()})"> </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            i++;
+                            tongtien += item.DonGia;
+                        }
+                    <tr class="rem1">
+                        <td colspan="3"  class="invert"></td>
+                        <td class="invert">Tổng tiền</td>
+                        <td class="invert">@tongtien.ToString("#,##") đ</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div style="padding-top: 20px; ">
+            @Html.ActionLink("Đặt hàng", "DatHang", null, new { @class = "btn-success padding10px" })
+        </div>
+    </div>
+}
+
+
+

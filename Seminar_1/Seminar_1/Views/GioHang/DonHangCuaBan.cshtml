@@ -1,0 +1,78 @@
+﻿@using Seminar_1.Models
+@{
+    ViewBag.Title = "XemDonHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css" media="all">
+    .nav-link1{
+        font-size:2rem !important;
+    }
+</style>
+<div>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse justify-content-center collapse in" id="navbarSupportedContent" style="height: auto;">
+                <div class="navbar-nav " style="
+    display: flex;
+    justify-content: space-between;
+    padding-left: 100px;
+    width: 100%;
+    padding-right: 100px;
+">
+                    <div class="nav-item active" id="li1" style="">
+                        @Ajax.ActionLink("Chờ xác nhận", "DonChuaXacNhanPartial", null, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "Ketqua", InsertionMode = InsertionMode.Replace }, new { @class = "nav-link1 nav-link" })
+                    </div>
+                    <div class="nav-item" id="li2">
+                        @Ajax.ActionLink("Đã xác nhận", "DonDaXacNhanPartial", null, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "Ketqua", InsertionMode = InsertionMode.Replace }, new { @class = "nav-link nav-link1" })
+                    </div>
+                    <div class="nav-item" id="li3">
+                        @Ajax.ActionLink("Đang vận chuyển", "DonDangGiaoPartial", null, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "Ketqua", InsertionMode = InsertionMode.Replace }, new { @class = "nav-link nav-link1" })
+                    </div>
+                    <div class="nav-item" id="li4">
+                        @Ajax.ActionLink("Đã nhận hàng", "DonDaNhanPartial", null, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "Ketqua", InsertionMode = InsertionMode.Replace }, new { @class = "nav-link nav-link1" })
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div id="Ketqua" style="width:95%; padding-top:50px; padding-left:100px;">
+        @Html.Action("DonChuaXacNhanPartial", "GioHang")
+    </div>
+</div>
+<script>
+
+    
+    var li1 = document.getElementById("li1");
+    var li2 = document.getElementById("li2");
+    var li3 = document.getElementById("li3");
+    var li4 = document.getElementById("li4");
+    li1.onclick = function () {
+        li2.classList.remove("active");
+        li3.classList.remove("active");
+        li4.classList.remove("active");
+        li1.classList.add("active");
+    }
+    li2.onclick = function () {
+        li1.classList.remove("active");
+        li3.classList.remove("active");
+        li4.classList.remove("active");
+        li2.classList.add("active");
+    }
+    li3.onclick = function () {
+        li1.classList.remove("active");
+        li2.classList.remove("active");
+        li4.classList.remove("active");
+        li3.classList.add("active");
+    }
+    li4.onclick = function () {
+         li1.classList.remove("active");
+        li2.classList.remove("active");
+        li3.classList.remove("active");
+        li4.classList.add("active");
+    }
+
+</script>
+

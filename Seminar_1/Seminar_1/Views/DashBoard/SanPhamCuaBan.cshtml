@@ -1,0 +1,126 @@
+﻿@using Seminar_1.Models
+@model IEnumerable<SanPham>
+@if (Session["DangNhap"] == null)
+{
+    <h2>Đăng nhập để xem giỏ hàng của bạn!</h2>
+}
+else
+{
+    <div class="container py-xl-4 py-lg-2">
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+            <span>S</span>ản phẩm của bạn
+        </h3>
+        <!-- //tittle heading -->
+        <div class="checkout-right">
+            <h4 class="mb-sm-4 mb-3">
+                Tổng sản phẩm:
+                <span>@Model.Count()</span>
+            </h4>
+            <div class="table-responsive">
+                <table class="timetable_sub2">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Hình ảnh</th>
+                            <th>Số lượng tồn</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Sửa</th>
+                            <th>Xóa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{int i = 0;}
+                        @foreach (var item in Model)
+                        {
+                            <tr class="rem1">
+                                <td class="invert">@i</td>
+                                <td class="invert-image">
+                                    <a href="single.html">
+                                        <img src="@Url.Content(item.HinhAnh)" alt=" " class="img-responsive">
+                                    </a>
+                                </td>
+                                <td class="invert">
+                                    <div class="quantity">
+                                        <div class="quantity-select">
+                                           
+                                            <div class="entry value">
+                                                <span>@item.SoLuongTon</span>
+                                            </div>
+                                          
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="invert">@item.TenSP</td>
+                                <td class="invert">@item.Gia.ToString("#,##") đ</td>
+                                <td class="invert">
+                                    <div class="rem">
+                                  
+                                        @Ajax.ActionLink("sửa", "ChinhSuaSanPham","DashBoard",new {@MaSP=item.MaSP}, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "Ketqua", InsertionMode = InsertionMode.Replace })
+                                    </div>
+                                </td>
+                                <td class="invert">
+                                    <div class="rem">
+                                        @Ajax.ActionLink("xóa", "XoaSanPham", "DashBoard", new { @MaSP = item.MaSP }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "Ketqua", InsertionMode = InsertionMode.Replace })
+                                    </div>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        @*@if (Session["dangnhap"] == null)
+            {
+                <div class="checkout-left">
+                    <div class="address_form_agile mt-sm-5 mt-4">
+                        <h4 class="mb-sm-4 mb-3">Add a new Details</h4>
+                        @using (Html.BeginForm("GhiNhanDonHang", "Giohang"))
+                        {
+                            <form action="payment.html" method="post" class="creditly-card-form agileinfo_form">
+                                <div class="creditly-wrapper wthree, w3_agileits_wrapper">
+                                    <div class="information-wrapper">
+                                        <div class="first-row">
+                                            <div class="controls form-group">
+                                                <input class="billing-address-name form-control" type="text" name="TenKH" placeholder="Full Name" required="">
+                                            </div>
+                                            <div class="w3_agileits_card_number_grids">
+                                                <div class="w3_agileits_card_number_grid_left form-group">
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control" placeholder="Mobile Number" name="SoDienThoai" required="">
+                                                    </div>
+                                                </div>
+                                                <div class="w3_agileits_card_number_grid_right form-group">
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control" placeholder="Landmark" name="landmark" required="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="controls form-group">
+                                                <input type="text" class="form-control" placeholder="Address" name="DiaChi" required="">
+                                            </div>
+
+                                        </div>
+                                        <button class="submit check_out btn">Order</button>
+                                    </div>
+                                </div>
+                            </form>
+                        }
+
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="information-wrapper">
+                    <a class="submit check_out btn" href="@Url.Action("GhiNhanDonHang", "Giohang")">Order</a>
+                </div>
+            }*@
+    </div>
+}
+
+
+
+

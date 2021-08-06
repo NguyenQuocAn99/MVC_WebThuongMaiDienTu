@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Seminar_1</name>
+    </assembly>
+    <members>
+        <member name="M:Seminar_1.Controllers.DashBoardController.TaoMoiSanPham">
+            Trả về partial view tạo mới sản phẩm
+        </member>
+        <member name="M:Seminar_1.Controllers.DashBoardController.SanPhamCuaBan">
+            Trả về partialview Sản phẩm của bạn
+        </member>
+        <member name="M:Seminar_1.Controllers.DashBoardController.ChinhSuaSanPham(System.Nullable{System.Int32})">
+            Trả về partialview Chinh sửa sản phẩm
+        </member>
+        <member name="M:Seminar_1.Controllers.DashBoardController.XoaSanPham(System.Nullable{System.Int32})">
+            
+        </member>
+        <member name="M:Seminar_1.Controllers.GioHangController.ChiTietDonHang(System.Int32,System.Int32)">
+            
+        </member>
+    </members>
+</doc>

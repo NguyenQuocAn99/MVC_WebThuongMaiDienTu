@@ -1,0 +1,104 @@
+﻿@using Seminar_1.Models
+@model IEnumerable<SanPham>
+@{
+    ViewBag.Title = "ShowSanPhamShop";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string tenNguoiBan = (string)ViewBag.TenNguoiBan;
+}
+<div class="ads-grid">
+    <div class="side-bar col-md-3">
+        <div class="search-hotel">
+            <h3 class="sear-head">@tenNguoiBan shop</h3>
+        </div>
+
+        <div class="range">
+            <h3 class="sear-head">@Model.Count() sản phẩm</h3>
+            <ul class="dropdown-menu6">
+                <li>
+
+                    <div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><div class="ui-slider-range ui-widget-header" style="left: 0.555556%; width: 66.1111%;"></div><a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0.555556%;"></a><a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 66.6667%;"></a></div>
+                    <input type="text" id="amount" style="border: 0; color: #ffffff; font-weight: normal;">
+                </li>
+            </ul>
+            <!---->
+            <script type="text/javascript" src="js/jquery-ui.js"></script>
+            <script type="text/javascript">
+                    //<![CDATA[
+                    $(window).load(function () {
+                        $("#slider-range").slider({
+                            range: true,
+                            min: 0,
+                            max: 9000,
+                            values: [50, 6000],
+                            slide: function (event, ui) {
+                                $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                            }
+                        });
+                        $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
+
+                    });//]]>
+            </script>
+
+        </div>
+    </div>
+    <div class="ads-display col-md-9" style="padding-right:0px">
+        <div class="wrapper">
+            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                <div id="myTabContent" class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                        <div>
+                            <div id="container">
+
+                                <div class="clearfix"></div>
+                                <ul class="list">
+                                    @if (Model.Count() > 0)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            <li>
+                                                <a href="@Url.Action("ChiTietSanPham","SanPham", new {@MaSP = item.MaSP ,@MaLoaiSP=item.MaLoaiSP, @MaNguoiBan=item.MaNguoiBan})">
+
+                                                    <img src="@item.HinhAnh" title="" alt="">
+                                                    <section class="list-left">
+                                                        <h5 class="title">@item.TenSP</h5>
+                                                        <span class="adprice">₫ @item.Gia.ToString("#,##")</span>
+                                                        <p class="catpath">@item.LoaiSP.DanhMucSP.TenDM » @item.LoaiSP.TenLSP</p>
+
+                                                        <div class="btn2" style="background-color:#0c8ae4">
+                                                            @if (Session["DangNhap"] != null)
+                                                            {
+                                                                <a href=@Url.Action("ThemItemVaoGioHang","GioHang",new{@MaSP=item.MaSP,@strURL=Request.Url.ToString()}) name="submit" value="Add to cart" class="btn2" style="color:#fff; display:block;">ADD TO CART</a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <a href=@Url.Action("DangNhap","Home") name="submit" value="Add to cart" class="btn2" style="color:#fff; display:block;">ADD TO CART</a>
+                                                            }
+                                                        </div>
+
+                                                    </section>
+                                                    <section class="list-right">
+                                                        <span class="date">@item.NgayDang</span>
+
+                                                    </section>
+                                                    <div class="clearfix"></div>
+
+
+                                                </a>
+
+                                            </li>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <li>Không có sản phẩm nào</li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>

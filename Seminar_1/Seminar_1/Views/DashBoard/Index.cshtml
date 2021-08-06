@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPageDashboard.cshtml";
+}
+<div id="Ketqua" style="width:95%; padding-top:50px; padding-left:100px;">
+    @Html.Action("SanPhamCuaBan", "DashBoard")
+</div>
+@section scripts {
+    <li class="treeview">
+        @Ajax.ActionLink("Sản phẩm của bạn", "SanPhamCuaBan", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "Ketqua", InsertionMode = InsertionMode.Replace })
+    </li>
+    <li class="treeview">
+
+        @Ajax.ActionLink("Thêm mới sản phẩm", "TaoMoiSanPham", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "Ketqua", InsertionMode = InsertionMode.Replace })
+    </li>
+    <li class="treeview">
+
+        @Ajax.ActionLink("Đơn hàng chưa gửi", "DonHangChuaGui", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "Ketqua", InsertionMode = InsertionMode.Replace })
+    </li>
+    <li class="treeview">
+
+        @Ajax.ActionLink("Sản phẩm đã bán", "SanpPhamDaBan", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "Ketqua", InsertionMode = InsertionMode.Replace })
+    </li>
+}

@@ -1,0 +1,31 @@
+﻿@using Seminar_1.Models
+@model IEnumerable<Don>
+
+<div class="panel-body widget-shadow">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Mã đơn</th>
+                <th>Ngày đặt</th>
+                <th>Tên người bán</th>
+                <th>Chi tiết</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.MaD.ToString()</th>
+                    <td>@item.NgayDat.ToString()</td>
+                    <td>@item.TenNguoiBan</td>
+                    <td>
+                        @Ajax.ActionLink("Chi tiết", "ChiTietDonHang", "GioHang", new { MaDH = item.MaD, indexPage = (int)ViewBag.IndexPage }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "Ketqua", InsertionMode = InsertionMode.Replace })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+

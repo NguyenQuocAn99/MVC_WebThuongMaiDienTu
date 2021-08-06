@@ -1,0 +1,143 @@
+﻿@using Seminar_1.Models
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "SanPham";
+    int MaLSP = (int)ViewBag.MaLSP;
+    PagedList.IPagedList<SanPham> sanpham = (PagedList.IPagedList<SanPham>)ViewBag.sanpham;
+    IEnumerable<LoaiSP> loaispData = (IEnumerable<LoaiSP>)ViewBag.loaispData;
+}
+<script>
+    $(document).ready(function () {
+        jQuery("#btn_z").click(function () {
+            var strSearch = $("#input_ajax").val();
+            $.ajax({
+                url: 'TimKiemSanPhamPartial',
+                type: 'GET',
+                data: {
+                    keySearch: strSearch
+                },
+                success: function (data) {
+                        $('#Ketqua_ajax').html(data);
+                }
+            });
+        });
+    });
+</script>
+@{ 
+    TempData["sanpham"] = sanpham;
+    TempData["MaDM"] = loaispData.First().MaDM; //Lấy lại mã danh mục từ loại sản phẩm bất kỳ trong danh mục
+    TempData["MaLSP"] = MaLSP;
+}
+<div class="container">
+    <div class="navigation-agileits">
+        <div class="container3" style="display:flex; justify-content:space-between; align-items:center; padding:10px; background:#fe9126;">
+
+            <nav class="navbar navbar-default" style="margin:0px;">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header nav_2">
+                    <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+                    <ul class="nav navbar-nav">
+
+                        <!-- Mega Menu -->
+                        @foreach (var gr in loaispData.GroupBy(n => n.DanhMucSP))
+                        {
+                            if (gr.Key != null)
+                            {
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">@gr.Key.TenDM</a>
+                                    <ul class="dropdown-menu multi-column columns-3">
+                                        <div class="row">
+                                            <div class="multi-gd-img">
+                                                <ul class="multi-column-dropdown">
+                                                    <li>
+                                                        <a href="@Url.Action("SanPham","SanPham",new {@MaDM=gr.First().MaDM,@MaLSP=0,@page = 1})">--Tất cả--</a>
+                                                    </li>
+                                                    @foreach (var item in gr)
+                                                    {
+                                                        
+                                                        <li>
+                                                            <a href="@Url.Action("SanPham","SanPham",new {@MaDM=item.MaDM,@MaLSP=item.MaLSP, @page =1 })">@item.TenLSP</a>
+                                                        </li>
+
+                                                    }
+
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </ul>
+                                </li>
+                            }
+
+                        }
+
+
+
+                    </ul>
+                </div>
+            </nav>
+            <div class="search-product ads-list" style="flex:1; margin-left:20px;">
+                <div class="search">
+                    <div id="custom-search-input" style="width:100%;">
+                        @*Tìm kiếm Ajax*@
+                        <div class="input-group">
+                            <input type="text" class="form-control input-lg" placeholder="Buscar" id="input_ajax">
+                            <span class="input-group-btn">
+                                <button class="btn btn-info btn-lg" type="button" id="btn_z">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+   
+    <ol class="breadcrumb" style="margin-bottom: 5px;">
+        <li class="active"></li>
+    </ol>
+    <div class="ads-grid">
+        <div class="side-bar col-md-3">
+            <div class="search-hotel">
+                @if(MaLSP==0)
+            {
+                <h3 class="sear-head">Tất cả sản phẩm trong danh mục</h3>
+                        }else
+                        {
+                            var loaisp = loaispData.SingleOrDefault(n => n.MaLSP == MaLSP);
+                <h3 class="sear-head">@loaisp.TenLSP</h3>
+            }
+                
+            </div>
+        </div>
+        <div id="Ketqua_ajax">
+            <div class="ads-display col-md-9" style="padding-right:0px">
+                <div class="wrapper">
+                    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                        <div id="myTabContent" class="tab-content">
+
+                            @Html.Partial("~/Views/SanPham/PartialView/SanPhamPartial.cshtml", sanpham)
+                            Trang @(sanpham.PageCount < sanpham.PageNumber ? 0 : sanpham.PageNumber)/@sanpham.PageCount
+                            @Html.PagedListPager(sanpham, page => Url.Action("SanPham", "SanPham", new { page = page, @MaDM = loaispData.First().MaDM, @MaLSP = MaLSP, }))
+ 
+                    </div>
+                        </div>
+            </div>
+
+        </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+</div>
+

@@ -1,0 +1,73 @@
+﻿@using Seminar_1.Models
+@model IEnumerable<SanPham>
+<style>
+    .home-product-item-img {
+        padding-top: 100%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        height:300px;
+    }
+</style>
+<li class="nbs-flexisel-item" style="width: 846px;">
+    @foreach (var item in Model.Take(4))
+    {
+        <div class="col-md-3 biseller-column">
+            <a href="@Url.Action("ChiTietSanPham","SanPham", new {@MaSP = item.MaSP ,@MaLoaiSP=item.MaLoaiSP, @MaNguoiBan=item.MaNguoiBan})">
+                @*<img src="@item.HinhAnh" style="height:300px;">*@
+                <div class="home-product-item-img" style="background-image:url(@item.HinhAnh)"></div>
+                <span class="price">đ @item.Gia.ToString("#,##")</span>
+            </a>
+            <div class="ad-info" style="justify-content:center; align-items:center;">
+                <div>
+                    <h5 style="height:30px; width:100%; margin-bottom:20px; text-align:center;">@item.TenSP</h5>
+                </div>
+                
+                <div class="btn2" style="background-color:#0c8ae4">
+                    @if (Session["DangNhap"] != null)
+                    {
+                        var tv = (ThanhVien)Session["dangnhap"];
+                        if (tv.MaTV != 3)
+                        {
+                            <a href=@Url.Action("ThemItemVaoGioHang","GioHang",new{@MaSP=item.MaSP,@strURL=Request.Url.ToString()}) name="submit" value="Add to cart" class="btn2" style="color:#fff; display:block;">ADD TO CART</a>
+                        }
+                    }
+                    else
+                    {
+                        <a href=@Url.Action("DangNhap","Home") name="submit" value="Add to cart" class="btn2" style="color:#fff; display:block;">ADD TO CART</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</li>
+<li class="nbs-flexisel-item" style="width: 846px;">
+    @foreach (var item in Model.Skip(4).Take(4))
+    {
+        <div class="col-md-3 biseller-column">
+            <a href="@Url.Action("ChiTietSanPham","SanPham", new {@MaSP = item.MaSP ,@MaLoaiSP=item.MaLoaiSP,@MaNguoiBan=item.MaNguoiBan})">
+                <div class="home-product-item-img" style="background-image:url(@item.HinhAnh)"></div>
+                <span class="price">₫ @item.Gia.ToString("#,##")</span>
+            </a>
+            <div class="ad-info">
+                <div>
+                    <h5 style="height:30px; width:100%; margin-bottom:20px; text-align:center;">@item.TenSP</h5>
+                </div>
+                <div class="btn2" style="background-color:#0c8ae4">
+                    @if (Session["DangNhap"] != null)
+                    {
+                        var tv = (ThanhVien)Session["dangnhap"];
+                        if (tv.MaTV != 3)
+                        {
+                            <a href=@Url.Action("ThemItemVaoGioHang","GioHang",new{@MaSP=item.MaSP,@strURL=Request.Url.ToString()}) name="submit" value="Add to cart" class="btn2" style="color:#fff; display:block;">ADD TO CART</a>
+                        }
+                    }
+                    else
+                    {
+                        <a href=@Url.Action("DangNhap","Home") name="submit" value="Add to cart" class="btn2" style="color:#fff; display:block;">ADD TO CART</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</li>

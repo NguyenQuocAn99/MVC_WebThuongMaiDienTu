@@ -1,0 +1,101 @@
+﻿@using Seminar_1.Models
+@model ThanhVien
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="page-wrapper" class="sign-in-wrapper">
+    <div class="graphs">
+        <div class="sign-up">
+            <h1>Tạo tài khoản</h1>
+            
+            @using (Ajax.BeginForm("DangKy", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "thongbaodangky", InsertionMode = InsertionMode.Replace }))
+            {
+                @Html.AntiForgeryToken()
+                <hr />
+                @Html.ValidationSummary(true)
+
+                <div class="sign-u">
+                    <div class="sign-up1">
+                        <h4>Họ Tên* :</h4>
+                    </div>
+                    <div class="sign-up2">
+                        @Html.ValidationMessageFor(model => model.TenTV, "", new { @style = "color:red;" })
+                        @Html.TextBoxFor(model => model.TenTV, new { @autocomplete = "off" })
+
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="sign-u">
+                    <div class="sign-up1">
+                        <h4>User Name* :</h4>
+                    </div>
+                    <div class="sign-up2">
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @style = "color:red;" })
+                        @Html.TextBoxFor(model => model.UserName, new { @autocomplete = "off" })
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="sign-u">
+                    <div class="sign-up1">
+                        <h4>Địa chỉ* :</h4>
+                    </div>
+                    <div class="sign-up2">
+                        @Html.ValidationMessageFor(model => model.DiaChi, "", new { @style = "color:red;" })
+                        @Html.TextBoxFor(model => model.DiaChi, new { @autocomplete = "off" })
+
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="sign-u">
+                    <div class="sign-up1">
+                        <h4>Số điện thoại* :</h4>
+                    </div>
+                    <div class="sign-up2">
+                        @Html.ValidationMessageFor(model => model.SDT, "", new { @style = "color:red;" })
+                        @Html.TextBoxFor(model => model.SDT, new { @autocomplete = "off"})
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="sign-u">
+                    <div class="sign-up1">
+                        <h4>Mật khẩu* :</h4>
+                    </div>
+                    <div class="sign-up2">
+                        @Html.ValidationMessageFor(model => model.PassWord, "", new { @style = "color:red;" })
+                        @Html.TextBoxFor(model => model.PassWord, new { @autocomplete = "off" })
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+
+                <div class="sign-u">
+                    <div class="sign-up1">
+                        <h4>Xác nhận mật khẩu* :</h4>
+                    </div>
+                    <div class="sign-up2">
+
+                        <input type="password" name="confirmMK" placeholder=" " required="" autocomplete="off">
+
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="sub_home">
+
+                    <div class="sub_home_left">
+
+                        <div style="color:red;" id="thongbaodangky"></div>
+                        <input type="submit" value="Create">
+
+                    </div>
+                    <div class="sub_home_right">
+                        <p>Go Back to <a href="index.html">Home</a></p>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+

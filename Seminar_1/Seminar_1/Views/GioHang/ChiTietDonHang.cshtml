@@ -1,0 +1,55 @@
+﻿@using Seminar_1.Models
+@model IEnumerable<ChiTietDon>
+@{ 
+    var indexPage = (int)ViewBag.IndexPage;
+    string tenAction = "ten";
+    switch(indexPage)
+    {
+        case 1:
+            tenAction = "DonChuaXacNhanPartial";
+            break;
+        case 2:
+            tenAction = "DonDaXacNhanPartial";
+            break;
+        case 3:
+            tenAction = "DonDangGiaoPartial";
+            break;
+        default:
+            tenAction = "DonDaNhanPartial";
+            break;
+
+    }
+    }
+<div class="panel-body widget-shadow">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Đơn giá</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{decimal tongTien = 0; }
+    @foreach (var item in Model)
+    {
+                <tr>
+                    <td>@item.TenSP.ToString()</td>
+                    <td>@item.SoLuong.ToString()</td>
+                    <td>@item.DonGia.ToString("#,##")</td>
+                </tr>
+                tongTien = tongTien + item.DonGia;
+    }
+            <tr>
+                <th colspan="2">Tổng tiền</th>
+                <th>@tongTien.ToString("#,##") vnd</th>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="text-align:center; padding:20px;">
+        @Ajax.ActionLink("Quay lại", tenAction, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "Ketqua", InsertionMode = 0 })
+    </div>
+</div>
+
+

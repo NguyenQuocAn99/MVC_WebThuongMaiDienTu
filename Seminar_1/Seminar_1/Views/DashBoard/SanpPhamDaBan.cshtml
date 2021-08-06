@@ -1,0 +1,37 @@
+﻿@using Seminar_1.Models
+@model IEnumerable<SanPham>
+@{ 
+    var tongDoanhThu = (decimal)ViewBag.TongDoanhThu;
+}
+
+<div class="panel-body widget-shadow">
+    @if (tongDoanhThu == 0)
+    {
+        <h3 style="padding-bottom:30px;">Doanh thu: 0 vnd</h3>
+    }
+    else
+    {
+        <h3 style="padding-bottom:30px;">Doanh thu: @tongDoanhThu.ToString("#,##") vnd</h3>
+    }
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th>Số lượng đã bán</th>
+                <th>Tổng tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.TenSP</th>
+                    <td>@item.SoLuongTon</td>
+                    <td>@item.Gia.ToString("#,##")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

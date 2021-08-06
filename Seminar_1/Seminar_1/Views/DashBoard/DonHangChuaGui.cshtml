@@ -1,0 +1,36 @@
+﻿@using Seminar_1.Models
+@model IEnumerable<Don>
+
+<div class="panel-body widget-shadow">
+    <h3 style="padding-bottom:30px;">Đơn chưa gửi</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Mã đơn</th>
+                <th>Tên người mua</th>
+                <th>Ngày đặt</th>
+                <th>Chi tiết</th>
+                <th>Gửi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.MaD.ToString()</th>
+                    <td>@item.TenNguoiMua</td>
+                    <td>@item.NgayDat.ToString()</td>
+                    <td>
+                        @Ajax.ActionLink("Chi tiết", "ChiTietDonHang", new { @MaDH = item.MaD }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "Ketqua", InsertionMode = InsertionMode.Replace })
+                    </td>
+                    <td>
+                        @*<a href=@Url.Action("GuiHang","DashBoard",new{@MaDH=item.MaD,@strURL=Request.Url.ToString()})>Gửi</a>*@
+                        @Ajax.ActionLink("Gửi", "GuiHang", new { @MaDH = item.MaD }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "Ketqua", InsertionMode = InsertionMode.Replace })
+                        @*@Ajax.ActionLink("Duyệt", "DuyetDonHang", new {@MaDH=item.MaDH}, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "Ketqua", InsertionMode = InsertionMode.Replace })*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
